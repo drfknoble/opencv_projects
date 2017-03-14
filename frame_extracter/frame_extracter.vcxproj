@@ -20,9 +20,9 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{C8B7982B-9CBA-4CE8-95B9-EE90B1DB0A72}</ProjectGuid>
+    <ProjectGuid>{D4BC9168-ECE0-4D92-9853-A883A7D9933C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>getting_started</RootNamespace>
+    <RootNamespace>frame_extracter</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.14393.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
