@@ -11,7 +11,7 @@ I have used the following tools to create each project:
  1. [OpenCV 3.2](http://opencv.org/).
  1. [Logitec c920 USB Camera](https://www.logitech.com/en-nz/product/hd-pro-webcam-c920).
  
-Furthermore, each project has been compiled and run on a PC running Windows 8 x64 to ensure they work.
+Furthermore, each project has been compiled and run on PCs running Windows 8 x64 and Windows 10 x64 to ensure they work.
 
 Best regards,
 
