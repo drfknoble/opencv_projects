@@ -33,7 +33,8 @@ Please note, the above list is not exhaustive; more of a minimal set to get star
 
 The following is a list of the projects included in this repository:
 1. [Getting Started](https://github.com/FKNoble/opencv_projects/tree/master/getting_started). This project is the 'Hello World!' of OpenCV projects. 
-2. [Frame Extractor](https://github.com/FKNoble/opencv_projects/tree/master/frame_extracter). This project looks at how to extract frames from a video.
+1. [Video Player](https://github.com/FKNoble/opencv_projects/tree/master/video_player). This project looks at how we can play a video file.
+1. [Frame Extractor](https://github.com/FKNoble/opencv_projects/tree/master/frame_extracter). This project looks at how to extract frames from a video.
 
 As mentioned, these projects were created using Microsoft's Visual Studio 2017. To facilitate getting each started quickly, I created a pair of property sheets: opencv_debug_x64.props and opencv_release_x64.props. These, essentially, tell each project's solution where OpenCV's include and lib directories are, and which .lib files to use. Here, I have used C:\opencv\opencv\build\include and C:\opencv\opencv\build\x64\vc14\lib, and the opencv_world320d.lib and opencv_world320.lib directories and files, respectively. If you're OpenCV installation is not in C:\opencv\, then you will need to modify the property sheets; though, you need only do this once (just take care to not overwrite changes if you clone this repo again to your working directory).
 
