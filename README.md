@@ -1,6 +1,6 @@
 # OpenCV Projects
 
-Welcome, 
+Hi There!
 
 My name is [Dr. Frazer K. Noble](http://www.massey.ac.nz/massey/expertise/profile.cfm?stref=803250) and I am a lecturer at Massey University's School of Engineering and Advanced Technology (SEAT), Albany, New Zealand.
 
