@@ -8,7 +8,7 @@ This repository is a collection of projects and tutorials for getting started an
 
 I have used the following tools to create each project:
  1. [Microsoft Visual Studio 2017](https://www.visualstudio.com/).
- 1. [OpenCV 3.2](http://opencv.org/) (see: http://opencv.org/).
+ 1. [OpenCV 3.2](http://opencv.org/).
  1. [Logitec c920 USB Camera](https://www.logitech.com/en-nz/product/hd-pro-webcam-c920).
  
 Furthermore, each project has been compiled and run on a PC running Windows 8 x64 to ensure they work.
