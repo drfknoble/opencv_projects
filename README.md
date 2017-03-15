@@ -19,6 +19,16 @@ Frazer
 
 P.S. If you'd like to hear about new projects and tutorials, follow me on Twitter [@FrazerNoble](https://twitter.com/FrazerNoble).
 
+# Resources
+
+Here is a list of resources, which I think, are helpful for learning OpenCV and coding:
+
+1. [OpenCV Documentation](http://docs.opencv.org/3.2.0/). OpenCV's documentation.
+1. [Learning OpenCV 3.0](http://shop.oreilly.com/product/0636920044765.do). A book for learning OpenCV.
+1. [Learn C++](http://www.learncpp.com/). A great website for learning C++.
+
+Please note, the above list is not exhaustive; more of a minimal set to get started.
+
 # Projects
 
 The following is a list of the projects included in this repository:
