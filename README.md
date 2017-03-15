@@ -42,4 +42,4 @@ As mentioned, these projects were created using Microsoft's Visual Studio 2017. 
 
 The following is a list of the tutorials included in this repository:
 
-1. [How to Install OpenCV](). A short tutorial on installing OpenCV.
+1. [How to Install OpenCV](https://youtu.be/IMZsrL12k6I). A short tutorial on installing OpenCV.
