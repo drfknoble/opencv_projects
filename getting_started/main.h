@@ -6,32 +6,13 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "main.h"
+#ifndef GETTING_STARTED_H_
+#define GETTING_STARTED_H_
 
-int main(int argc, char* argv[]) {
+#include <opencv2\opencv.hpp>
 
-	cv::VideoCapture camera(0);
+namespace project {
 
-	cv::namedWindow("Hello World", cv::WINDOW_AUTOSIZE);
+} // !project
 
-	while (true) {
-
-		cv::Mat image;
-
-		camera >> image;
-
-		if (!image.empty()) {
-			cv::imshow("Hello World", image);
-		}
-
-		char c = cv::waitKey(1);
-		if (c == 27) {
-			break;
-		}
-	}
-
-	cv::destroyAllWindows();
-	camera.release();
-
-	return 0;
-}
+#endif // !GETTING_STARTED_H_
