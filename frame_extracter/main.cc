@@ -9,17 +9,27 @@
 #include "main.h"
 
 int main(int argc, char* argv[]) {
-	
-	std::string current_directory = GetPath();
 
-	std::string input_directory = current_directory.append("\\data\\input\\");
-	std::string output_directory = current_directory.append("\\data\\output\\");
-	
-	int step_size = 10;
+	std::string current_directory = "";
+	std::string input_directory = "";
+	std::string output_directory = "";
+	std::string file_name = "";
+
+	getpath(&current_directory);
+	input_directory = current_directory.append("\\data\\input\\");
+	getpath(&current_directory);
+	output_directory = current_directory.append("\\data\\output\\");
+
+	file_name = input_directory.append("Video.mp4");
+
+	int step_size = 100;
 
 	int r = 0;
-	while ((r = GetOpt(argc, argv, "i:o:n:")) != -1) {
+	while ((r = GetOpt(argc, argv, "f:i:o:n:")) != -1) {
 		switch (r) {
+		case 'f':
+			file_name = optarg;
+			break;
 		case 'i':
 			input_directory = optarg;
 			break;
@@ -31,22 +41,29 @@ int main(int argc, char* argv[]) {
 			break;
 		}
 	}
-	
-	std::string file_name = input_directory.append("Video.mp4");
 
-	cv::VideoCapture camera(file_name);
+	cv::VideoCapture video(file_name);
 
-	cv::namedWindow("Video", cv::WINDOW_AUTOSIZE);
+	cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
+
+	int frame_count = static_cast<int>(video.get(cv::CAP_PROP_FRAME_COUNT));
+	int current_frame = 0;
 
 	while (true) {
 
-		cv::Mat image;
+		cv::Mat frame;
+		std::stringstream ss;
 
-		camera >> image;
-
-		if (!image.empty()) {
-			cv::imshow("Video", image);
-		}
+		if (current_frame + step_size < frame_count) {
+			if (video.read(frame)) {
+				cv::imshow(file_name, frame);
+				ss << output_directory << "frame_" << current_frame << ".png";
+				std::cout << ss.str() << std::endl;
+				cv::imwrite(ss.str(), frame);
+				current_frame += step_size;
+				video.set(cv::CAP_PROP_POS_FRAMES, current_frame);
+			}
+		}		
 
 		char c = cv::waitKey(30);
 		if (c == 27) {

@@ -6,24 +6,21 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef GETPATH_H_
-#define GETPATH_H_
+#ifndef GETDIR_H_
+#define GETDIR_H_
 
-#include <direct.h>
 #include <string>
+#include <direct.h>
 
-std::string GetPath() {
-	
-	char* buffer;
+void getpath(std::string *path) {
 
-	// Get the current working directory:   
-	if ((buffer = _getcwd(NULL, 0)) == NULL)
-		return std::string("Error");
-	else
-	{
-		return std::string(buffer);
-	}
+	char buffer[256];
+	getcwd(buffer, sizeof(buffer));
 	
+	*path = buffer;
+
+	return;
 }
 
-#endif // !GETPATH_H_
+
+#endif // !GETDIR_H_

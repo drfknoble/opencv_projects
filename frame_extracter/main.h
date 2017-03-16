@@ -12,8 +12,9 @@
 #include <opencv2\opencv.hpp>
 
 #include "getopt.h"
-#include "getpath.h"
+#include "getdir.h"
 #include <iostream>
+#include <sstream>
 #include <string>
 
 namespace project {
