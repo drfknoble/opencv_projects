@@ -22,7 +22,7 @@ int main(int argc, char* argv[]) {
 
 	file_name = input_directory.append("Video.mp4");
 
-	int step_size = 100;
+	int step_size = 1;
 
 	int r = 0;
 	while ((r = GetOpt(argc, argv, "f:i:o:n:")) != -1) {
