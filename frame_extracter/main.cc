@@ -65,7 +65,7 @@ int main(int argc, char* argv[]) {
 			}
 		}		
 
-		char c = cv::waitKey(30);
+		char c = cv::waitKey(1);
 		if (c == 27) {
 			break;
 		}

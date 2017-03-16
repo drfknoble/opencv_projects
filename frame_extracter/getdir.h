@@ -15,7 +15,7 @@
 void getpath(std::string *path) {
 
 	char buffer[256];
-	getcwd(buffer, sizeof(buffer));
+	_getcwd(buffer, sizeof(buffer));
 	
 	*path = buffer;
 
