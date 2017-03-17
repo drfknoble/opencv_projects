@@ -12,20 +12,13 @@ In this project, we introduce the use of command line parameters. Here, we have 
 
 # Program Operation
 
-# Key files
-
-The following provides an overview of what each of the project's main files do.
-
-## main.cc
-
-1. Initialises the directory and filename strings.
+1. Initialises directories and filename strings.
 1. Gets current working directory and appends default input and output directories.
-
-## main.h
-
-## getopt.h
-
-## getdir.h
+1. Reads the command line parameters, and if any are set, updates local variables.
+1. Creates a cv::VideoCapture object and reads frames from the video.
+1. Frames are then saved to the output directory.
+1. When Esc is pressed, display window is closed and the cv::VideoCapture object is released.
 
 # Conclusion
 
+This program successfully extracts frames from a video.
