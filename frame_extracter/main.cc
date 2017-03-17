@@ -16,16 +16,16 @@ int main(int argc, char* argv[]) {
 	std::string file_name = "";
 
 	getpath(&current_directory);
-	input_directory = current_directory.append("\\data\\input\\");
-	getpath(&current_directory);
-	output_directory = current_directory.append("\\data\\output\\");
+	input_directory = current_directory + std::string("\\data\\input\\");
+	output_directory = current_directory + std::string("\\data\\output\\");
 
-	file_name = input_directory.append("Video.mp4");
+	file_name = std::string("Video.mp4");
 
 	int step_size = 1;
+	bool debug = false;
 
 	int r = 0;
-	while ((r = GetOpt(argc, argv, "f:i:o:n:")) != -1) {
+	while ((r = GetOpt(argc, argv, "f:i:o:n:d")) != -1) {
 		switch (r) {
 		case 'f':
 			file_name = optarg;
@@ -39,10 +39,21 @@ int main(int argc, char* argv[]) {
 		case 'n':
 			step_size = atoi(optarg);
 			break;
+		case 'd':
+			debug = true;
+			break;
 		}
 	}
 
-	cv::VideoCapture video(file_name);
+	if (debug) {
+		std::cout << "Input directory: " << input_directory << std::endl;
+		std::cout << "Output directory: " << output_directory << std::endl;
+		std::cout << "Filename: " << file_name << std::endl;
+		std::cout << "Step size: " << step_size << std::endl;
+	}
+
+	std::cout << "File: " << input_directory + file_name << std::endl;
+	cv::VideoCapture video(input_directory + file_name);
 
 	cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
 

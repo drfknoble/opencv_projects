@@ -10,14 +10,23 @@
 #define GETDIR_H_
 
 #include <string>
-#include <direct.h>
+//#include <direct.h>
+#include <Windows.h>
 
+//gets current working directory, which might not be the directory the
+//exe is called from. Works, but can be problematic if using _getcwd().
 void getpath(std::string *path) {
 
-	char buffer[256];
-	_getcwd(buffer, sizeof(buffer));
+	//char buffer[256];
+	//_getcwd(buffer, sizeof(buffer));
 	
-	*path = buffer;
+	char buffer[MAX_PATH];
+		
+	GetModuleFileNameA(NULL, buffer, sizeof(buffer));
+
+	int exe = std::string(buffer).find_last_of("/\\");
+			
+	*path = std::string(buffer).substr(0, exe);
 
 	return;
 }
