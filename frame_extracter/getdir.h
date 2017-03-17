@@ -21,7 +21,6 @@ void getpath(std::string *path) {
 	//_getcwd(buffer, sizeof(buffer));
 	
 	char buffer[MAX_PATH];
-		
 	GetModuleFileNameA(NULL, buffer, sizeof(buffer));
 
 	int exe = std::string(buffer).find_last_of("/\\");
