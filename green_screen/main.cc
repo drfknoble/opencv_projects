@@ -93,6 +93,8 @@ int main(int argc, char* argv[]) {
 
 		//cv::VideoCapture input(input_directory + file_name);
 		cv::VideoCapture input(0);
+		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
+		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
 
 		while (true) {
 
