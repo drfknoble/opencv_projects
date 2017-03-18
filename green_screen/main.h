@@ -37,16 +37,19 @@ namespace project {
 
 	}
 
-	void GreenScreen(const cv::Mat &src, cv::Scalar &hsv, const cv::Mat &mask, cv::Mat *dst) {
+	void GreenScreen(const cv::Mat &src, cv::Scalar &hsv, cv::Mat *dst) {
 
 		cv::Mat image = src;
 
-		cv::Scalar lwr(min(0, hsv[0] - 10), hsv[1], hsv[2]);
+		cv::Scalar lwr(max(0, hsv[0] - 10), hsv[1], hsv[2]);
 		cv::Scalar upr(min(180, hsv[0] + 10), 255, 255);
 
-		DetectColour(image, lwr , upr, &image);
+		DetectColour(image, lwr, upr, &image);
+		
+		cv::threshold(image, image, 100, 255, cv::THRESH_BINARY);
+		cv::bitwise_not(image, image);
 
-		image.copyTo(image, mask);
+		src.copyTo(image, image);
 
 		*dst = image;
 

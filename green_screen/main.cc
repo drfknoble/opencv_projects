@@ -80,10 +80,6 @@ int main(int argc, char* argv[]) {
 		
 	cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
 
-	cv::Mat mk = cv::imread(input_directory + std::string("pic.PNG"));
-	cv::namedWindow("Mask", cv::WINDOW_AUTOSIZE);
-	cv::imshow("Mask", mk);
-
 	if (image) {
 
 		cv::Mat input = cv::imread(input_directory + file_name);
@@ -100,10 +96,14 @@ int main(int argc, char* argv[]) {
 		while (true) {
 
 			cv::Mat frame;
+			cv::Mat sml_frame;
 
 			if (input.read(frame)) {
-				project::GreenScreen(frame, cv::Scalar(60, 20, 20), mk, &frame);
-				cv::imshow(file_name, frame);
+
+				cv::pyrDown(frame, sml_frame);
+				project::GreenScreen(frame, cv::Scalar(0, 20, 20), &frame);
+				cv::imshow(std::string("Maksed ") + file_name, frame);
+				cv::imshow(file_name, sml_frame);
 			}
 
 			char c = cv::waitKey(1);
