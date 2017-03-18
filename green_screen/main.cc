@@ -91,8 +91,9 @@ int main(int argc, char* argv[]) {
 	}
 	else if (video) {
 
-		cv::VideoCapture input(input_directory + file_name);
-				
+		//cv::VideoCapture input(input_directory + file_name);
+		cv::VideoCapture input(0);
+
 		while (true) {
 
 			cv::Mat frame;
@@ -101,7 +102,7 @@ int main(int argc, char* argv[]) {
 			if (input.read(frame)) {
 
 				cv::pyrDown(frame, sml_frame);
-				project::GreenScreen(frame, cv::Scalar(0, 20, 20), &frame);
+				project::GreenScreen(frame, cv::Scalar(60, 10, 10), &frame);
 				cv::imshow(std::string("Maksed ") + file_name, frame);
 				cv::imshow(file_name, sml_frame);
 			}

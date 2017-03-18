@@ -49,7 +49,17 @@ namespace project {
 		cv::threshold(image, image, 100, 255, cv::THRESH_BINARY);
 		cv::bitwise_not(image, image);
 
+		cv::Mat img = cv::imread("C:\\Users\\Frazer\\Documents\\projects\\opencv_projects\\green_screen\\data\\input\\mask.jpg");
+		cv::resize(img, img, cv::Size(image.size()));
+		cv::Mat mask;
+		cv::bitwise_not(image, mask);
+		cv::Mat masked;
+		img.copyTo(masked, mask);
+		cv::imshow("", masked);
+
 		src.copyTo(image, image);
+		
+		cv::add(image, masked, image);
 
 		*dst = image;
 
