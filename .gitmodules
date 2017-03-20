@@ -1,3 +1,0 @@
-[submodule "green_screen/gflags"]
-	path = green_screen/gflags
-	url = https://github.com/gflags/gflags
