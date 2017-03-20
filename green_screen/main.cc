@@ -6,7 +6,14 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#include <gflags/gflags.h>
 #include "main.h"
+
+DEFINE_string(i, "", "[dir]");
+DEFINE_string(f, "", "[file.type]");
+DEFINE_string(o, "", "[dir]");
+DEFINE_int32(n, 1, "[1, 100]");
+DEFINE_bool(d, false, "[true, false]");
 
 int main(int argc, char* argv[]) {
 
@@ -24,25 +31,50 @@ int main(int argc, char* argv[]) {
 	int step_size = 1;
 	bool debug = false;
 
-	int r = 0;
-	while ((r = GetOpt(argc, argv, "f:i:o:n:d")) != -1) {
-		switch (r) {
-		case 'f':
-			file_name = optarg;
-			break;
-		case 'i':
-			input_directory = optarg;
-			break;
-		case 'o':
-			output_directory = optarg;
-			break;
-		case 'n':
-			step_size = atoi(optarg);
-			break;
-		case 'd':
-			debug = true;
-			break;
-		}
+	//int r = 0;
+	//while ((r = GetOpt(argc, argv, "f:i:o:n:d")) != -1) {
+	//	switch (r) {
+	//	case 'f':
+	//		file_name = optarg;
+	//		break;
+	//	case 'i':
+	//		input_directory = optarg;
+	//		break;
+	//	case 'o':
+	//		output_directory = optarg;
+	//		break;
+	//	case 'n':
+	//		step_size = atoi(optarg);
+	//		break;
+	//	case 'd':
+	//		debug = true;
+	//		break;
+	//	}
+	//}
+
+	if (FLAGS_i.compare("")) {
+		input_directory = FLAGS_i;
+		std::cout << FLAGS_i << std::endl;
+	}
+
+	if (FLAGS_f.compare("")) {
+		file_name = FLAGS_f;
+		std::cout << FLAGS_f << std::endl;
+	}
+
+	if (FLAGS_o.compare("")) {
+		output_directory = FLAGS_i;
+		std::cout << FLAGS_o << std::endl;
+	}
+
+	if (!FLAGS_n == 1) {
+		step_size = FLAGS_n;
+		std::cout << FLAGS_n << std::endl;
+	}
+
+	if (FLAGS_d) {
+		debug = true;
+		std::cout << FLAGS_d << std::endl;
 	}
 
 	if (debug) {
