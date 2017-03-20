@@ -80,6 +80,8 @@ int main(int argc, char* argv[]) {
 		
 	cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
 
+	cv::Mat mask = cv::imread(input_directory + "mask_gray.jpg");
+
 	if (image) {
 
 		cv::Mat input = cv::imread(input_directory + file_name);
@@ -95,7 +97,7 @@ int main(int argc, char* argv[]) {
 		cv::VideoCapture input(0);
 		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
 		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
-
+		
 		while (true) {
 
 			cv::Mat frame;
@@ -104,7 +106,7 @@ int main(int argc, char* argv[]) {
 			if (input.read(frame)) {
 
 				cv::pyrDown(frame, sml_frame);
-				project::GreenScreen(frame, cv::Scalar(60, 10, 10), &frame);
+				project::GreenScreen(frame, mask, cv::Scalar(65, 10, 10), &frame);
 				cv::imshow(std::string("Maksed ") + file_name, frame);
 				cv::imshow(file_name, sml_frame);
 			}

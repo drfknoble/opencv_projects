@@ -37,7 +37,7 @@ namespace project {
 
 	}
 
-	void GreenScreen(const cv::Mat &src, cv::Scalar &hsv, cv::Mat *dst) {
+	void GreenScreen(const cv::Mat &src,  const cv::Mat &mask, cv::Scalar &hsv,  cv::Mat *dst) {
 
 		cv::Mat image = src;
 
@@ -49,17 +49,17 @@ namespace project {
 		cv::threshold(image, image, 100, 255, cv::THRESH_BINARY);
 		cv::bitwise_not(image, image);
 
-		cv::Mat img = cv::imread("C:\\Users\\Frazer\\Documents\\projects\\opencv_projects\\green_screen\\data\\input\\mask.jpg");
-		cv::resize(img, img, cv::Size(image.size()));
-		cv::Mat mask;
-		cv::bitwise_not(image, mask);
-		cv::Mat masked;
-		img.copyTo(masked, mask);
-		cv::imshow("", masked);
+		cv::Mat img;
+		cv::resize(mask, img, cv::Size(image.size()));
+		cv::Mat msk;
+		cv::bitwise_not(image, msk);
+		cv::Mat mskd;
+		img.copyTo(mskd, msk);
+		cv::imshow("", mskd);
 
 		src.copyTo(image, image);
 		
-		cv::add(image, masked, image);
+		cv::add(image, mskd, image);
 
 		*dst = image;
 
