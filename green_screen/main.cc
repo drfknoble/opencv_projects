@@ -30,28 +30,7 @@ int main(int argc, char* argv[]) {
 
 	int step_size = 1;
 	bool debug = false;
-
-	//int r = 0;
-	//while ((r = GetOpt(argc, argv, "f:i:o:n:d")) != -1) {
-	//	switch (r) {
-	//	case 'f':
-	//		file_name = optarg;
-	//		break;
-	//	case 'i':
-	//		input_directory = optarg;
-	//		break;
-	//	case 'o':
-	//		output_directory = optarg;
-	//		break;
-	//	case 'n':
-	//		step_size = atoi(optarg);
-	//		break;
-	//	case 'd':
-	//		debug = true;
-	//		break;
-	//	}
-	//}
-
+	
 	if (FLAGS_i.compare("")) {
 		input_directory = FLAGS_i;
 		std::cout << FLAGS_i << std::endl;
