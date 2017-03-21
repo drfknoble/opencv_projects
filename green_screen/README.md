@@ -45,11 +45,11 @@ Here's a screen shot of the expected outputs:
 
 ![Example](./data/output/screenshot.png)
 
-If you call green_screen.exe from the command line, you can use the following flags:
--i to set the input directory.
--f to set the file name.
--o to set the output directory.
--d to set the debug flag.
+If you call green_screen.exe from the command line, you can use the following flags:  
+-i to set the input directory.  
+-f to set the file name.  
+-o to set the output directory.  
+-d to set the debug flag.  
 
 # Contributing
 
