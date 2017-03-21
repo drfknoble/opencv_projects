@@ -114,7 +114,7 @@
     </Link>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)data $(OutDir)data /s /e 
-copy $(ProjectDir)\gflags\Lib\gflags.dll $(OutDir) 
+copy $(DEV_LIBRARIES)\gflags\Lib\gflags.dll $(OutDir) 
 copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320d.dll $(OutDir)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
@@ -157,8 +157,8 @@ copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320d.dll $(OutDir)</Command>
     </Link>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)data $(OutDir)data /s /e 
-copy $(ProjectDir)\gflags\Lib\gflags.dll $(OutDir) 
-copy C:\opencv\opencv\build\x64\vc14\bin\opencv_world320.dll $(OutDir)</Command>
+copy $(DEV_LIBRARIES)\gflags\Lib\gflags.dll $(OutDir) 
+copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320.dll $(OutDir)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
       <Message>Copies data, and opencv's and gflags' dlls to the output directory.</Message>
