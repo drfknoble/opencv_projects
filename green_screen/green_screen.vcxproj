@@ -114,10 +114,11 @@
     </Link>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)data $(OutDir)data /s /e 
-copy $(ProjectDir)\gflags\Lib\gflags.dll $(OutDir) </Command>
+copy $(ProjectDir)\gflags\Lib\gflags.dll $(OutDir) 
+copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320d.dll $(OutDir)</Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies data and gflags' dll to output directory.</Message>
+      <Message>Copies data, and opencv's and gflags' dlls to output directory.</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -154,6 +155,14 @@ copy $(ProjectDir)\gflags\Lib\gflags.dll $(OutDir) </Command>
       <AdditionalLibraryDirectories>$(ProjectDir)/gflags/Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>gflags.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>robocopy $(ProjectDir)data $(OutDir)data /s /e 
+copy $(ProjectDir)\gflags\Lib\gflags.dll $(OutDir) 
+copy C:\opencv\opencv\build\x64\vc14\bin\opencv_world320.dll $(OutDir)</Command>
+    </PostBuildEvent>
+    <PostBuildEvent>
+      <Message>Copies data, and opencv's and gflags' dlls to the output directory.</Message>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cc" />
