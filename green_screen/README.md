@@ -21,8 +21,8 @@ Demonstrates how the Open Computer Vision (OpenCV) library can be used to detect
 1. A USB web camera, video file (.mp4, .avi), or image (.jpg, .png).
 
 To help ensure everything works, I'd also suggest you create the following enrionmental variables:
-1. OPENCV_DIR C:/opencv/opencv/build. Note, this will be wherever you installed OpenCV.
-1. GFLAGS_DIR C:/dev_libraries/gflags. Note, this will be wherever you have/will put gflags.
+1. OPENCV_DIR C:/opencv/opencv/build. Note, this is the directory wherever you installed OpenCV.
+1. DEV_LIBRARIES C:/dev_libraries. Note, this is the directory wherever you have/will put the built gflags repo.
 
 # Installation
 
@@ -30,9 +30,9 @@ The following instructions are relevant for x64 machines:
 
 1. Clone the opencv_projects repo'.
 1. Clone the gflags repo'.
-1. Build gFlags using CMake as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now a C:/Program Files/gFlags directory, which contains an Include and Lib sub-directory.
+1. If you've not dones soo already, build gFlags using CMake as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now a C:/Program Files/gFlags directory, which contains an Include and Lib sub-directory. Move this directory to C:/dev_libraries/.
 1. Open the green_screen.sln file.
-1. Change the solution platforms from x86 to x64.
+1. Change the solution platforms from x86 to x64, if necessary.
 1. Build the project.
 
 At this point everything should compile and run. You should have three windows appear, as depicted below.
@@ -44,6 +44,12 @@ Assuming you have a USB web camera, when you run the executable it'll extract an
 Here's a screen shot of the expected outputs:
 
 ![Example](./data/output/screenshot.png)
+
+If you call green_screen.exe from the command line, you can use the following flags:
+-i to set the input directory.
+-f to set the file name.
+-o to set the output directory.
+-d to set the debug flag.
 
 # Contributing
 
