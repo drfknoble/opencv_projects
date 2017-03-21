@@ -9,6 +9,17 @@
 #ifndef FRAME_EXTRACTOR_H_
 #define FRAME_EXTRACTOR_H_
 
+/*!
+* \file main.cc
+* \author Dr. Frazer K. Noble
+* \date 2017
+* \brief This program demonstrates how the Open Computer Vision (OpenCV) library can be used to detect a green-screen and replace it with a desired image.
+*
+* \section Description.
+*
+* \note Comments are written in Doxygen-compliant format (see \link https://www.stack.nl/~dimitri/doxygen/manual/docblocks.html \endlink). Here, I have used Qt style (/ *! ...text... * /)
+*/
+
 #include <opencv2\opencv.hpp>
 
 #include "getdir.h"
@@ -18,8 +29,16 @@
 #include <string>
 #include <vector>
 
+//! \brief green_screen project's namespace.
 namespace project {
 
+	/*!
+	* \brief project::DetectColour() detects colour in a specified range.
+	* \param src src is the input cv::Mat object.
+	* \param lwr lwr is the [3 x 1] cv::Scalar object of the lower range of HSV to search from.
+	* \param upr upr is the [3 x 1] cv::Scalar object of the upper range of HSV values to search to.
+	* \param dst dst is the output cv::Mat object.
+	*/
 	void DetectColour(const cv::Mat &src, const cv::Scalar &lwr, const cv::Scalar &upr, cv::Mat *dst) {
 
 		cv::Mat image;
@@ -37,6 +56,13 @@ namespace project {
 
 	}
 
+	/*!
+	* \brief project::GreenScreen() looks for green in an image and replaces it with a desired background.
+	* \param src src is the input cv::Mat object.
+	* \param mask mask is the input cv::Mat object of the desired background.
+	* \param hsv upr is the [3 x 1] cv::Scalar object of the desired HSV values.
+	* \param dst dst is the output cv::Mat object.
+	*/
 	void GreenScreen(const cv::Mat &src,  const cv::Mat &mask, cv::Scalar &hsv,  cv::Mat *dst) {
 
 		cv::Mat image = src;
@@ -67,4 +93,4 @@ namespace project {
 
 } // !project
 
-#endif // !FRAME_EXTRACTOR_H_
+#endif //! FRAME_EXTRACTOR_H_
