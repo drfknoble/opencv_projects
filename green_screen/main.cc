@@ -6,21 +6,57 @@
 //
 //THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include <gflags/gflags.h>
-#include "main.h"
+/*!
+ * \file main.cc
+ * \author Dr. Frazer K. Noble
+ * \date 2017
+ * \brief This program demonstrates how the Open Computer Vision (OpenCV) library can be used to detect a green-screen and replace it with a desired image.
+ *
+ * \section Description.
+ *
+ * \note Comments are written in Doxygen-compliant format (see \link https://www.stack.nl/~dimitri/doxygen/manual/docblocks.html \endlink). Here, I have used Qt style (/ *! ...text... * /)
+ */
 
+#include "main.h" //! For DEFINE_x() and getpath()
+
+ /*! 
+  * \brief gFlag command line parameter.
+  * \param i i is the input directory, which an image or video should be loaded from.
+  */
 DEFINE_string(i, "", "[dir]");
+/*!
+* \brief gFlag command line parameter.
+* \param f f is the image's or video's file name.
+*/
 DEFINE_string(f, "", "[file.type]");
+/*! 
+* \brief gFlag command line parameter.
+* \param o o is the output directory, which an image or video should be loaded to.
+*/
 DEFINE_string(o, "", "[dir]");
+/*! 
+* \brief gFlag command line parameter.
+* \param n n is the number of frames to step by, when viewing a video.
+*/
 DEFINE_int32(n, 1, "[1, 100]");
+/*!
+* \brief gFlag command line parameter.
+* \param d d is the debug flag; when set, it displays additional information.
+*/
 DEFINE_bool(d, false, "[true, false]");
 
+/*
+ * \brief Main entry point for the program.
+ * \param argc is the number of command line parameters provided.
+ * \param argv is the string of command line parameters provided.
+ * \return Returns 0 on success; -1 on failure.
+ */
 int main(int argc, char* argv[]) {
 
-	std::string current_directory = "";
-	std::string input_directory = "";
-	std::string output_directory = "";
-	std::string file_name = "";
+	std::string current_directory = ""; //! Current working directory of the executable.
+	std::string input_directory = ""; //! The input directory.
+	std::string output_directory = ""; //! The output directory.
+	std::string file_name = "";//! The file name.
 
 	getpath(&current_directory);
 	input_directory = current_directory + std::string("\\data\\input\\");
@@ -28,35 +64,39 @@ int main(int argc, char* argv[]) {
 
 	file_name = std::string("Video.mp4");
 
-	int step_size = 1;
-	bool debug = false;
-	
-	if (FLAGS_i.compare("")) {
+	int step_size = 1; //! The step size.
+	bool debug = false; //! The debug flag.
+
+	/*!
+	 * Check the command line parameters to see if non-default values are used.
+	 */
+
+	if (FLAGS_i.compare("")) { //! If input directory is provided, update default.
 		input_directory = FLAGS_i;
 		std::cout << FLAGS_i << std::endl;
 	}
 
-	if (FLAGS_f.compare("")) {
+	if (FLAGS_f.compare("")) { //! If file name is provided, update default.
 		file_name = FLAGS_f;
 		std::cout << FLAGS_f << std::endl;
 	}
 
-	if (FLAGS_o.compare("")) {
+	if (FLAGS_o.compare("")) { //! If output directory is provided, update default.
 		output_directory = FLAGS_i;
 		std::cout << FLAGS_o << std::endl;
 	}
 
-	if (!FLAGS_n == 1) {
+	if (!FLAGS_n == 1) { //! If step size is provided, update default.
 		step_size = FLAGS_n;
 		std::cout << FLAGS_n << std::endl;
 	}
 
-	if (FLAGS_d) {
+	if (FLAGS_d) { //! If debug flag is set, update default.
 		debug = true;
 		std::cout << FLAGS_d << std::endl;
 	}
 
-	if (debug) {
+	if (debug) { //! If debug flag is set, display the input and output directories, file name, and step size.
 		std::cout << "Input directory: " << input_directory << std::endl;
 		std::cout << "Output directory: " << output_directory << std::endl;
 		std::cout << "Filename: " << file_name << std::endl;
@@ -65,7 +105,7 @@ int main(int argc, char* argv[]) {
 
 	std::cout << "File: " << input_directory + file_name << std::endl;
 
-	//get file name and parse file type
+	//! Split the file name and its type. 
 
 	std::vector<std::string> token_vec = {};
 	std::stringstream ss(file_name);
@@ -73,11 +113,11 @@ int main(int argc, char* argv[]) {
 	while (std::getline(ss, token, '.')) {
 		token_vec.push_back(token);
 	}
-	
-	//is the file type a video or an image
-	bool video = false;
-	bool image = false;
 
+	bool video = false; //! Video flag.
+	bool image = false; //! Image flag.
+
+	//! Check to see if the file type corresponds to a video or an image.
 	if (token_vec[1].compare(".mp4") || token_vec[1].compare(".avi")) {
 		video = true;
 	}
@@ -88,27 +128,33 @@ int main(int argc, char* argv[]) {
 		std::cout << "Input  not a video (.mp4, .avi) or an image (.jpg, .png)" << std::endl;
 		return -1;
 	}
-		
+
+	//! Create window
 	cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
 
+	//! Read in background image.
 	cv::Mat mask = cv::imread(input_directory + "mask_gray.jpg");
 
-	if (image) {
+
+	if (image) { //! If input is an image; run project::GreenScreen() once, display output, and wait for key press.
 
 		cv::Mat input = cv::imread(input_directory + file_name);
 
 		if (!input.empty()) {
+			project::GreenScreen(input, mask, cv::Scalar(65, 10, 10), &input);
 			cv::imshow(file_name, input);
 		}
 
+		char c = cv::waitKey(0);
+
 	}
-	else if (video) {
+	else if (video) { //! If input is an video; run project::GreenScreen() continuously, display output, and wait for key press.
 
 		//cv::VideoCapture input(input_directory + file_name);
 		cv::VideoCapture input(0);
 		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
 		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
-		
+
 		while (true) {
 
 			cv::Mat frame;
@@ -124,6 +170,7 @@ int main(int argc, char* argv[]) {
 
 			char c = cv::waitKey(1);
 			if (c == 27) {
+				input.release();
 				break;
 			}
 		}

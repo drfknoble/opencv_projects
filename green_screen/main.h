@@ -12,6 +12,7 @@
 #include <opencv2\opencv.hpp>
 
 #include "getdir.h"
+#include <gflags/gflags.h>
 #include <iostream>
 #include <sstream>
 #include <string>
