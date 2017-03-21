@@ -19,7 +19,7 @@
 
 #include "main.h" //! For DEFINE_x() and getpath()
 
- /*! 
+ /*!
   * \brief gFlag command line parameter.
   * \param i i is the input directory, which an image or video should be loaded from.
   */
@@ -29,12 +29,12 @@ DEFINE_string(i, "", "[dir]");
 * \param f f is the image's or video's file name.
 */
 DEFINE_string(f, "", "[file.type]");
-/*! 
+/*!
 * \brief gFlag command line parameter.
 * \param o o is the output directory, which an image or video should be loaded to.
 */
 DEFINE_string(o, "", "[dir]");
-/*! 
+/*!
 * \brief gFlag command line parameter.
 * \param n n is the number of frames to step by, when viewing a video.
 */
@@ -62,8 +62,6 @@ int main(int argc, char* argv[]) {
 	input_directory = current_directory + std::string("\\data\\input\\");
 	output_directory = current_directory + std::string("\\data\\output\\");
 
-	file_name = std::string("Video.mp4");
-
 	int step_size = 1; //! The step size.
 	bool debug = false; //! The debug flag.
 
@@ -71,17 +69,17 @@ int main(int argc, char* argv[]) {
 	 * Check the command line parameters to see if non-default values are used.
 	 */
 
-	if (FLAGS_i.compare("")) { //! If input directory is provided, update default.
+	if (FLAGS_i.compare("") != 0) { //! If input directory is provided, update default.
 		input_directory = FLAGS_i;
 		std::cout << FLAGS_i << std::endl;
 	}
 
-	if (FLAGS_f.compare("")) { //! If file name is provided, update default.
+	if (FLAGS_f.compare("") != 0) { //! If file name is provided, update default.
 		file_name = FLAGS_f;
 		std::cout << FLAGS_f << std::endl;
 	}
 
-	if (FLAGS_o.compare("")) { //! If output directory is provided, update default.
+	if (FLAGS_o.compare("") != 0) { //! If output directory is provided, update default.
 		output_directory = FLAGS_i;
 		std::cout << FLAGS_o << std::endl;
 	}
@@ -103,42 +101,44 @@ int main(int argc, char* argv[]) {
 		std::cout << "Step size: " << step_size << std::endl;
 	}
 
-	std::cout << "File: " << input_directory + file_name << std::endl;
-
-	//! Split the file name and its type. 
-
-	std::vector<std::string> token_vec = {};
-	std::stringstream ss(file_name);
-	std::string token;
-	while (std::getline(ss, token, '.')) {
-		token_vec.push_back(token);
-	}
-
 	bool video = false; //! Video flag.
 	bool image = false; //! Image flag.
 
-	//! Check to see if the file type corresponds to a video or an image.
-	if (token_vec[1].compare(".mp4") || token_vec[1].compare(".avi")) {
-		video = true;
-	}
-	else if (token_vec[1].compare(".jpg") || token_vec[1].compare(".png")) {
-		image = true;
-	}
-	else {
-		std::cout << "Input  not a video (.mp4, .avi) or an image (.jpg, .png)" << std::endl;
-		return -1;
-	}
+	if (file_name.compare("") != 0) { //! If a file name is provided; parse it to see what its file type is.
 
-	//! Create window
-	cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
+		std::cout << "File: " << input_directory + file_name << std::endl;
+
+		//! Split the file name and its type. 
+		std::vector<std::string> token_vec = {};
+		std::stringstream ss(file_name);
+		std::string token;
+		while (std::getline(ss, token, '.')) {
+			token_vec.push_back(token);
+		}
+
+		//! Check to see if the file type corresponds to a video or an image.
+		if (token_vec[1].compare(".mp4") || token_vec[1].compare(".avi")) {
+			video = true;
+		}
+		else if (token_vec[1].compare(".jpg") || token_vec[1].compare(".png")) {
+			image = true;
+		}
+		else {
+			std::cout << "Input  not a video (.mp4, .avi) or an image (.jpg, .png)" << std::endl;
+			return -1;
+		}
+
+	}
 
 	//! Read in background image.
-	cv::Mat mask = cv::imread(input_directory + "mask_gray.jpg");
-
-
+	cv::Mat mask = cv::imread(input_directory + "background.jpg");
+	
 	if (image) { //! If input is an image; run project::GreenScreen() once, display output, and wait for key press.
-
+				
 		cv::Mat input = cv::imread(input_directory + file_name);
+
+		//! Create window
+		cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
 
 		if (!input.empty()) {
 			project::GreenScreen(input, mask, cv::Scalar(65, 10, 10), &input);
@@ -150,10 +150,12 @@ int main(int argc, char* argv[]) {
 	}
 	else if (video) { //! If input is an video; run project::GreenScreen() continuously, display output, and wait for key press.
 
-		//cv::VideoCapture input(input_directory + file_name);
-		cv::VideoCapture input(0);
+		cv::VideoCapture input(input_directory + file_name);
 		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
 		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
+
+		//! Create window
+		cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
 
 		while (true) {
 
@@ -166,6 +168,35 @@ int main(int argc, char* argv[]) {
 				project::GreenScreen(frame, mask, cv::Scalar(65, 10, 10), &frame);
 				cv::imshow(std::string("Maksed ") + file_name, frame);
 				cv::imshow(file_name, sml_frame);
+			}
+
+			char c = cv::waitKey(1);
+			if (c == 27) {
+				input.release();
+				break;
+			}
+		}
+	}
+	else { //! Input is a video capture device; run project::GreenScreen() continuously, display output, and wait for key press.
+
+		cv::VideoCapture input(0); //! Get frames from the default device.
+		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
+		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
+
+		//! Create window
+		cv::namedWindow("Green Screen", cv::WINDOW_AUTOSIZE);
+
+		while (true) {
+
+			cv::Mat frame;
+			cv::Mat sml_frame;
+
+			if (input.read(frame)) {
+
+				cv::pyrDown(frame, sml_frame);
+				project::GreenScreen(frame, mask, cv::Scalar(65, 10, 10), &frame);
+				cv::imshow("Maksed Image", frame);
+				cv::imshow("Green Screen", sml_frame);
 			}
 
 			char c = cv::waitKey(1);
