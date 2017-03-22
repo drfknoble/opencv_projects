@@ -45,7 +45,7 @@ Assuming you have a USB web camera, when you run the executable it'll show you w
 
 Here's a screen shot of the expected outputs:
 
-![Example](./data/output/screenshot.png)
+![Example](./data/output/screenshot.PNG)
 
 If you call green_screen.exe from the command line, you can use the following flags:  
 -d to set the debug flag. Though, at this point isn't explicitly used.  
