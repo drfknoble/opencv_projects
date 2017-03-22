@@ -47,7 +47,7 @@ Here's a screen shot of the expected outputs:
 
 ![Example](./data/output/screenshot.PNG)
 
-If you call green_screen.exe from the command line, you can use the following flags:  
+If you call getting_started.exe from the command line, you can use the following flags:  
 -d to set the debug flag. Though, at this point isn't explicitly used.  
 
 # Contributing
