@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 	getpath(&current_directory);
 	input_directory = current_directory + std::string("\\data\\input\\");
 	output_directory = current_directory + std::string("\\data\\output\\");
-	file_name = "Video.mp4";
+	//file_name = "Video.mp4";
 
 	int step_size = 1; //! The step size.
 	bool debug = false; //! The debug flag.
@@ -134,7 +134,7 @@ int main(int argc, char* argv[]) {
 	}
 
 	//! Read in background image.
-	cv::Mat mask = cv::imread(input_directory + "background.jpg");
+	cv::Mat mask = cv::imread(input_directory + "space.jpg");
 	
 	if (image) { //! If input is an image; run project::GreenScreen() once, display output, and wait for key press.
 				
