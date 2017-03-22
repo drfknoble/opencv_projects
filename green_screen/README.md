@@ -30,7 +30,7 @@ The following instructions are relevant for x64 machines:
 
 1. Clone the opencv_projects repo'.
 1. Clone the gflags repo'.
-1. If you've not done so already, build gFlags using CMake as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now a C:/Program Files/gFlags directory, which contains an Include and Lib sub-directory. Move this directory to C:/dev_libraries/.
+1. If you've not done so already, build gflags using CMake as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now a C:/Program Files/gflags directory, which contains an Include and Lib sub-directory. Move this directory to C:/dev_libraries/.
 1. Open the green_screen.sln file.
 1. Change the solution platforms from x86 to x64, if necessary.
 1. Build the project.
