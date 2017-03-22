@@ -26,7 +26,7 @@ P.S. If you'd like to hear about new projects and tutorials, follow me on Twitte
 I have used the following tools and libraries to create each project:
 
  1. [gflags](https://github.com/gflags/gflags).
- 1. [CMake]().
+ 1. [CMake](https://cmake.org/).
  1. [Microsoft Visual Studio 2017](https://www.visualstudio.com/).
  1. [OpenCV 3.2](http://opencv.org/).
  1. [Logitec c920 USB Camera](https://www.logitech.com/en-nz/product/hd-pro-webcam-c920).
