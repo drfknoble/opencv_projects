@@ -69,6 +69,7 @@ In the DevLibraries property sheets, I have used the DEV_LIBRARIES environmental
 The following is a list of the tutorials included in this repository:
 
 1. [How to Install OpenCV](https://youtu.be/IMZsrL12k6I). A short tutorial on installing OpenCV.
+1. [How to Build an Open Source Project](https://youtu.be/LxHV-KNEG3k) A short video on how to build an open source project with CMake.
 
 # Installation
 
