@@ -61,6 +61,7 @@ int main(int argc, char* argv[]) {
 	getpath(&current_directory);
 	input_directory = current_directory + std::string("\\data\\input\\");
 	output_directory = current_directory + std::string("\\data\\output\\");
+	file_name = "Video.mp4";
 
 	int step_size = 1; //! The step size.
 	bool debug = false; //! The debug flag.
@@ -69,25 +70,27 @@ int main(int argc, char* argv[]) {
 	 * Check the command line parameters to see if non-default values are used.
 	 */
 
-	if (FLAGS_i.compare("") != 0) { //! If input directory is provided, update default.
-		input_directory = FLAGS_i;
-		std::cout << FLAGS_i << std::endl;
-	}
+	gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-	if (FLAGS_f.compare("") != 0) { //! If file name is provided, update default.
-		file_name = FLAGS_f;
-		std::cout << FLAGS_f << std::endl;
-	}
+	//if (FLAGS_i.compare("") != 0) { //! If input directory is provided, update default.
+	//	input_directory = FLAGS_i;
+	//	std::cout << std::string(FLAGS_i) << std::endl;
+	//}
 
-	if (FLAGS_o.compare("") != 0) { //! If output directory is provided, update default.
-		output_directory = FLAGS_i;
-		std::cout << FLAGS_o << std::endl;
-	}
+	//if (FLAGS_f.compare("") != 0) { //! If file name is provided, update default.
+	//	file_name = FLAGS_f;
+	//	std::cout << std::string(FLAGS_f) << std::endl;
+	//}
 
-	if (!FLAGS_n == 1) { //! If step size is provided, update default.
-		step_size = FLAGS_n;
-		std::cout << FLAGS_n << std::endl;
-	}
+	//if (FLAGS_o.compare("") != 0) { //! If output directory is provided, update default.
+	//	output_directory = FLAGS_i;
+	//	std::cout << std::string(FLAGS_o) << std::endl;
+	//}
+
+	//if (!FLAGS_n == 1) { //! If step size is provided, update default.
+	//	step_size = FLAGS_n;
+	//	std::cout << FLAGS_n << std::endl;
+	//}
 
 	if (FLAGS_d) { //! If debug flag is set, update default.
 		debug = true;
@@ -208,6 +211,33 @@ int main(int argc, char* argv[]) {
 	}
 
 	cv::destroyAllWindows();
+	gflags::ShutDownCommandLineFlags();
 
 	return 0;
 }
+
+//#include <gflags\gflags.h>
+//#include <string>
+//#include <iostream>
+//
+//DEFINE_bool(debug, false, "");
+//DEFINE_string(f, "", "");
+//
+//int main(int argc, char* argv[]) {
+//
+//	gflags::ParseCommandLineFlags(&argc, &argv, true);
+//
+//	if (FLAGS_debug) {
+//		std::cout << std::string("Debug") << std::endl;
+//	}
+//	
+//	if (FLAGS_f.compare("") != 0) {
+//		std::cout << std::string(FLAGS_f) + "not rubbish" << std::endl;
+//	}
+//
+//	gflags::ShutDownCommandLineFlags();
+//
+//	system("pause");
+//
+//	return 0;
+//}

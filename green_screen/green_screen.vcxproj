@@ -168,6 +168,7 @@ copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320.dll $(OutDir)</Command>
     <ClCompile Include="main.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\dev_libraries\gflags\Include\gflags\gflags.h" />
     <ClInclude Include="getdir.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
