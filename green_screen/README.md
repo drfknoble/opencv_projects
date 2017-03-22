@@ -14,6 +14,8 @@ Demonstrates how the Open Computer Vision (OpenCV) library can be used to detect
 
 # Requirements
 
+I have used the following tools and libraries to create this project:
+
 1. [gflags](https://github.com/gflags/gflags).
 1. [CMake](https://cmake.org/).
 1. [OpenCV 3.20](http://opencv.org/).
