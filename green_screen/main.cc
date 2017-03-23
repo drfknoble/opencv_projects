@@ -72,30 +72,32 @@ int main(int argc, char* argv[]) {
 
 	gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-	//if (FLAGS_i.compare("") != 0) { //! If input directory is provided, update default.
-	//	input_directory = FLAGS_i;
-	//	std::cout << std::string(FLAGS_i) << std::endl;
-	//}
+	if (FLAGS_i.compare("") != 0) { //! If input directory is provided, update default.
+		input_directory = FLAGS_i;
+		std::cout << std::string(FLAGS_i) << std::endl;
+	}
 
-	//if (FLAGS_f.compare("") != 0) { //! If file name is provided, update default.
-	//	file_name = FLAGS_f;
-	//	std::cout << std::string(FLAGS_f) << std::endl;
-	//}
+	if (FLAGS_f.compare("") != 0) { //! If file name is provided, update default.
+		file_name = FLAGS_f;
+		std::cout << std::string(FLAGS_f) << std::endl;
+	}
 
-	//if (FLAGS_o.compare("") != 0) { //! If output directory is provided, update default.
-	//	output_directory = FLAGS_i;
-	//	std::cout << std::string(FLAGS_o) << std::endl;
-	//}
+	if (FLAGS_o.compare("") != 0) { //! If output directory is provided, update default.
+		output_directory = FLAGS_i;
+		std::cout << std::string(FLAGS_o) << std::endl;
+	}
 
-	//if (!FLAGS_n == 1) { //! If step size is provided, update default.
-	//	step_size = FLAGS_n;
-	//	std::cout << FLAGS_n << std::endl;
-	//}
+	if (!FLAGS_n == 1) { //! If step size is provided, update default.
+		step_size = FLAGS_n;
+		std::cout << FLAGS_n << std::endl;
+	}
 
 	if (FLAGS_d) { //! If debug flag is set, update default.
 		debug = true;
 		std::cout << FLAGS_d << std::endl;
 	}
+
+	gflags::ShutDownCommandLineFlags();
 
 	if (debug) { //! If debug flag is set, display the input and output directories, file name, and step size.
 		std::cout << "Input directory: " << input_directory << std::endl;
@@ -110,34 +112,47 @@ int main(int argc, char* argv[]) {
 	if (file_name.compare("") != 0) { //! If a file name is provided; parse it to see what its file type is.
 
 		std::cout << "File: " << input_directory + file_name << std::endl;
-
+		
 		//! Split the file name and its type. 
 		std::vector<std::string> token_vec = {};
 		std::stringstream ss(file_name);
 		std::string token;
+
 		while (std::getline(ss, token, '.')) {
 			token_vec.push_back(token);
 		}
 
-		//! Check to see if the file type corresponds to a video or an image.
-		if (token_vec[1].compare(".mp4") || token_vec[1].compare(".avi")) {
-			video = true;
+		try {
+			//test; it'll throw an exception if not able to parse a file suffix.
+			std::string suffix = token_vec.at(1);
+			std::cout << suffix << std::endl;
+			std::cout << suffix.compare("mp4") << std::endl;
+
+			//! Check to see if the file type corresponds to a video or an image.
+			if ((suffix.compare("mp4") == 0) || (suffix.compare("avi") == 0)) {
+				video = true;
+			}
+			else if ((suffix.compare("jpg") == 0) || (suffix.compare("png") == 0)) {
+				image = true;
+			}
+			else {
+				std::cout << "Input  not a video (.mp4, .avi) or an image (.jpg, .png)" << std::endl;
+				return -1;
+			}
+
 		}
-		else if (token_vec[1].compare(".jpg") || token_vec[1].compare(".png")) {
-			image = true;
-		}
-		else {
-			std::cout << "Input  not a video (.mp4, .avi) or an image (.jpg, .png)" << std::endl;
-			return -1;
+		catch (const std::exception& ex) {
+			std::cerr << "Could not parse file name: " << ex.what() << std::endl;
+			return -1; //!Should break 
 		}
 
 	}
 
 	//! Read in background image.
 	cv::Mat mask = cv::imread(input_directory + "space.jpg");
-	
+
 	if (image) { //! If input is an image; run project::GreenScreen() once, display output, and wait for key press.
-				
+
 		cv::Mat input = cv::imread(input_directory + file_name);
 
 		//! Create window
@@ -211,7 +226,6 @@ int main(int argc, char* argv[]) {
 	}
 
 	cv::destroyAllWindows();
-	gflags::ShutDownCommandLineFlags();
 
 	return 0;
 }
