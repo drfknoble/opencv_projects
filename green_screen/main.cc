@@ -33,6 +33,11 @@ DEFINE_string(f, "", "[file.type]");
 * \brief gFlag command line parameter.
 * \param o o is the output directory, which an image or video should be loaded to.
 */
+DEFINE_string(b, "", "[file.type]");
+/*!
+* \brief gFlag command line parameter.
+* \param o o is the output directory, which an image or video should be loaded to.
+*/
 DEFINE_string(o, "", "[dir]");
 /*!
 * \brief gFlag command line parameter.
@@ -57,11 +62,13 @@ int main(int argc, char* argv[]) {
 	std::string input_directory = ""; //! The input directory.
 	std::string output_directory = ""; //! The output directory.
 	std::string file_name = "";//! The file name.
+	std::string background = "";
 
 	getpath(&current_directory);
 	input_directory = current_directory + std::string("\\data\\input\\");
 	output_directory = current_directory + std::string("\\data\\output\\");
 	//file_name = "Video.mp4";
+	background = std::string("background.jpg");
 
 	int step_size = 1; //! The step size.
 	bool debug = false; //! The debug flag.
@@ -74,27 +81,32 @@ int main(int argc, char* argv[]) {
 
 	if (FLAGS_i.compare("") != 0) { //! If input directory is provided, update default.
 		input_directory = FLAGS_i;
-		std::cout << std::string(FLAGS_i) << std::endl;
+		//std::cout << std::string(FLAGS_i) << std::endl;
 	}
 
 	if (FLAGS_f.compare("") != 0) { //! If file name is provided, update default.
 		file_name = FLAGS_f;
-		std::cout << std::string(FLAGS_f) << std::endl;
+		//std::cout << std::string(FLAGS_f) << std::endl;
+	}
+
+	if (FLAGS_b.compare("") != 0) { //! If file name is provided, update default.
+		background = FLAGS_b;
+		//std::cout << std::string(FLAGS_b) << std::endl;
 	}
 
 	if (FLAGS_o.compare("") != 0) { //! If output directory is provided, update default.
 		output_directory = FLAGS_i;
-		std::cout << std::string(FLAGS_o) << std::endl;
+		//std::cout << std::string(FLAGS_o) << std::endl;
 	}
 
 	if (!FLAGS_n == 1) { //! If step size is provided, update default.
 		step_size = FLAGS_n;
-		std::cout << FLAGS_n << std::endl;
+		//std::cout << FLAGS_n << std::endl;
 	}
 
 	if (FLAGS_d) { //! If debug flag is set, update default.
 		debug = true;
-		std::cout << FLAGS_d << std::endl;
+		//std::cout << FLAGS_d << std::endl;
 	}
 
 	gflags::ShutDownCommandLineFlags();
@@ -103,6 +115,7 @@ int main(int argc, char* argv[]) {
 		std::cout << "Input directory: " << input_directory << std::endl;
 		std::cout << "Output directory: " << output_directory << std::endl;
 		std::cout << "Filename: " << file_name << std::endl;
+		std::cout << "Background: " << background << std::endl;
 		std::cout << "Step size: " << step_size << std::endl;
 	}
 
@@ -125,9 +138,7 @@ int main(int argc, char* argv[]) {
 		try {
 			//test; it'll throw an exception if not able to parse a file suffix.
 			std::string suffix = token_vec.at(1);
-			std::cout << suffix << std::endl;
-			std::cout << suffix.compare("mp4") << std::endl;
-
+		
 			//! Check to see if the file type corresponds to a video or an image.
 			if ((suffix.compare("mp4") == 0) || (suffix.compare("avi") == 0)) {
 				video = true;
@@ -149,11 +160,19 @@ int main(int argc, char* argv[]) {
 	}
 
 	//! Read in background image.
-	cv::Mat mask = cv::imread(input_directory + "space.jpg");
+	cv::Mat mask = cv::imread(input_directory + background);
+	if (mask.empty()) {
+		std::cout << "Could not parse background file" << std::endl;
+		return -1;
+	}
 
 	if (image) { //! If input is an image; run project::GreenScreen() once, display output, and wait for key press.
 
 		cv::Mat input = cv::imread(input_directory + file_name);
+		if (input.empty()) {
+			std::cout << "Could not parse input file" << std::endl;
+			return -1;
+		}
 
 		//! Create window
 		cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
@@ -169,6 +188,12 @@ int main(int argc, char* argv[]) {
 	else if (video) { //! If input is an video; run project::GreenScreen() continuously, display output, and wait for key press.
 
 		cv::VideoCapture input(input_directory + file_name);
+
+		if(!input.isOpened()) {
+			std::cout << "Could not open input file" << std::endl;
+			return -1;
+		}
+
 		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
 		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
 
@@ -197,7 +222,13 @@ int main(int argc, char* argv[]) {
 	}
 	else { //! Input is a video capture device; run project::GreenScreen() continuously, display output, and wait for key press.
 
-		cv::VideoCapture input(0); //! Get frames from the default device.
+		cv::VideoCapture input(0); //! Get frames from the default video capture device.
+
+		if (!input.isOpened()) {
+			std::cout << "Could not open video capture device" << std::endl;
+			return -1;
+		}
+
 		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
 		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
 
