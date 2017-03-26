@@ -10,13 +10,13 @@
 #define FRAME_EXTRACTOR_H_
 
 #include <opencv2\opencv.hpp>
-
-#include "getopt.h"
+#include <gflags\gflags.h>
 #include "getdir.h"
 #include <iostream>
 #include <sstream>
 #include <string>
 
+//! \brief frame_extracter project's namespace.
 namespace project {
 
 

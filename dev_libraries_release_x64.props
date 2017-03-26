@@ -11,6 +11,10 @@
     <ClCompile>
       <AdditionalIncludeDirectories>$(DEV_LIBRARIES)\gflags\Include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <PostBuildEvent>
+      <Command>
+      </Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup />
 </Project>
