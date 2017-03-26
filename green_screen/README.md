@@ -41,7 +41,7 @@ At this point everything should compile and run. You should have three windows a
 
 # Usage
 
-Assuming you have a USB web camera, when you run the executable it'll extract and image and look for the colour green; where it finds the colour green, it'll replace it with the background.
+Assuming you have a USB web camera, when you run the executable it'll extract an image and look for the colour green; where it finds the colour green, it'll replace it with the background.
 
 Here's a screen shot of the expected outputs:
 
