@@ -31,7 +31,7 @@ DEFINE_string(i, "", "[dir]");
 DEFINE_string(f, "", "[file.type]");
 /*!
 * \brief gFlag command line parameter.
-* \param o o is the output directory, which an image or video should be loaded to.
+* \param b b is the background image's file name.
 */
 DEFINE_string(b, "", "[file.type]");
 /*!
