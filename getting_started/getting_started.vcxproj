@@ -67,11 +67,13 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\opencv_debug_x64.props" />
     <Import Project="..\dev_libraries_debug_x64.props" />
+    <Import Project="..\setup_debug_x64.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\opencv_release_x64.props" />
     <Import Project="..\dev_libraries_release_x64.props" />
+    <Import Project="..\setup_release_x64.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -110,11 +112,12 @@
       <SubSystem>Console</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(DEV_LIBRARIES)\gflags\Lib\gflags.dll $(OutDir)
-copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320d.dll $(OutDir)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies gflags.dll and opencv_world320d.dll to $(OutDir).</Message>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -149,11 +152,12 @@ copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320d.dll $(OutDir)</Command>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <PostBuildEvent>
-      <Command>copy $(DEV_LIBRARIES)\gflags\Lib\gflags.dll $(OutDir)
-copy $(OPENCV_DIR)\x64\vc14\bin\opencv_world320.dll $(OutDir)</Command>
+      <Command>
+      </Command>
     </PostBuildEvent>
     <PostBuildEvent>
-      <Message>Copies gflags.dll and opencv_world320.dll to $(OutDir).</Message>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

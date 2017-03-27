@@ -8,6 +8,33 @@
 
 #include "main.h"
 
+/*!
+* \brief gFlag command line parameter.
+* \param i i is the input directory, which an image or video should be loaded from.
+*/
+DEFINE_string(i, "", "[dir]");
+/*!
+* \brief gFlag command line parameter.
+* \param f f is the image's or video's file name.
+*/
+DEFINE_string(f, "", "[file.type]");
+/*!
+* \brief gFlag command line parameter.
+* \param o o is the output directory, which an image or video should be loaded to.
+*/
+DEFINE_string(o, "", "[dir]");
+/*!
+* \brief gFlag command line parameter.
+* \param d d is the debug flag; when set, it displays additional information.
+*/
+DEFINE_bool(d, false, "[true, false]");
+
+/*
+* \brief Main entry point for the program.
+* \param argc is the number of command line parameters provided.
+* \param argv is the string of command line parameters provided.
+* \return Returns 0 on success; -1 on failure.
+*/
 int main(int argc, char* argv[]) {
 
 	std::string current_directory = "";
@@ -23,28 +50,31 @@ int main(int argc, char* argv[]) {
 
 	int step_size = 1;
 	bool debug = false;
+	
+	gflags::ParseCommandLineFlags(&argc, &argv, true);
 
-	int r = 0;
-	while ((r = GetOpt(argc, argv, "f:i:o:n:d")) != -1) {
-		switch (r) {
-		case 'f':
-			file_name = optarg;
-			break;
-		case 'i':
-			input_directory = optarg;
-			break;
-		case 'o':
-			output_directory = optarg;
-			break;
-		case 'n':
-			step_size = atoi(optarg);
-			break;
-		case 'd':
-			debug = true;
-			break;
-		}
+	if (FLAGS_i.compare("") != 0) { //! If input directory is provided, update default.
+		input_directory = FLAGS_i;
+		//std::cout << std::string(FLAGS_i) << std::endl;
 	}
 
+	if (FLAGS_f.compare("") != 0) { //! If file name is provided, update default.
+		file_name = FLAGS_f;
+		//std::cout << std::string(FLAGS_f) << std::endl;
+	}
+
+	if (FLAGS_o.compare("") != 0) { //! If output directory is provided, update default.
+		output_directory = FLAGS_i;
+		//std::cout << std::string(FLAGS_o) << std::endl;
+	}
+
+	if (FLAGS_d) { //! If debug flag is set, update default.
+		debug = true;
+		//std::cout << FLAGS_d << std::endl;
+	}
+
+	gflags::ShutDownCommandLineFlags();
+	
 	if (debug) {
 		std::cout << "Input directory: " << input_directory << std::endl;
 		std::cout << "Output directory: " << output_directory << std::endl;
