@@ -2,6 +2,8 @@
 
 # Description
 
+Demonstrates how the Open Computer Vision (OpenCV) library can be used to detect a colour. The command line can be used to modify the program's behavior. Works for either an image (.jpg, .png) or a video (.mp4, .avi) file.
+
 # Table of Contents
 
 1. Requirements.
