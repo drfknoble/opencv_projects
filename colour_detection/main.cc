@@ -161,9 +161,15 @@ int main(int argc, char* argv[]) {
 
 		//! Create window
 		cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
+		cv::namedWindow("Small " + file_name, cv::WINDOW_AUTOSIZE);
 
 		if (!input.empty()) {
 			cv::resize(input, input, cv::Size(1280, 720));
+
+			cv::Mat original = input.clone();
+			cv::pyrDown(original, original);
+			cv::imshow("Small " + file_name, original);
+
 			project::DetectColour(input, cv::Scalar(110, 25, 25), cv::Scalar(130, 255, 255), &input);
 			cv::imshow(file_name, input);
 		}
