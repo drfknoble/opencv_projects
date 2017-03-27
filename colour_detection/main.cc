@@ -27,6 +27,11 @@ DEFINE_string(o, "", "[dir]");
 * \brief gFlag command line parameter.
 * \param d d is the debug flag; when set, it displays additional information.
 */
+DEFINE_int32(n, 1, "[0:MAX_FRAME-1]");
+/*!
+* \brief gFlag command line parameter.
+* \param d d is the debug flag; when set, it displays additional information.
+*/
 DEFINE_bool(d, false, "[true, false]");
 
 /*
@@ -68,6 +73,11 @@ int main(int argc, char* argv[]) {
 		//std::cout << std::string(FLAGS_o) << std::endl;
 	}
 
+	if (FLAGS_n != 1) { //! If output directory is provided, update default.
+		step_size = FLAGS_n;
+		//std::cout << std::string(FLAGS_o) << std::endl;
+	}
+
 	if (FLAGS_d) { //! If debug flag is set, update default.
 		debug = true;
 		//std::cout << FLAGS_d << std::endl;
@@ -82,14 +92,47 @@ int main(int argc, char* argv[]) {
 		std::cout << "Step size: " << step_size << std::endl;
 	}
 
+	bool video = false; //! Video flag.
+	bool image = false; //! Image flag.
+
+	if (file_name.compare("") != 0) { //! If a file name is provided; parse it to see what its file type is.
+
+		std::cout << "File: " << input_directory + file_name << std::endl;
+
+		//! Split the file name and its type. 
+		std::vector<std::string> token_vec = {};
+		std::stringstream ss(file_name);
+		std::string token;
+
+		while (std::getline(ss, token, '.')) {
+			token_vec.push_back(token);
+		}
+
+		try {
+			//test; it'll throw an exception if not able to parse a file suffix.
+			std::string suffix = token_vec.at(1);
+
+			//! Check to see if the file type corresponds to a video or an image.
+			if ((suffix.compare("mp4") == 0) || (suffix.compare("avi") == 0)) {
+				video = true;
+			}
+			else if ((suffix.compare("jpg") == 0) || (suffix.compare("png") == 0)) {
+				image = true;
+			}
+			else {
+				std::cout << "Input  not a video (.mp4, .avi) or an image (.jpg, .png)" << std::endl;
+				return -1;
+			}
+
+		}
+		catch (const std::exception& ex) {
+			std::cerr << "Could not parse file name: " << ex.what() << std::endl;
+			return -1; //!Should break 
+		}
+
+	}
+
 	std::cout << "File: " << input_directory + file_name << std::endl;
-	cv::VideoCapture video(input_directory + file_name);
-
-	cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
-	cv::namedWindow("Small " + file_name, cv::WINDOW_AUTOSIZE);
-
-	int frame_count = static_cast<int>(video.get(cv::CAP_PROP_FRAME_COUNT));
-	int current_frame = 0;
 
 	cv::Mat bgr_red = cv::Mat(1, 1, CV_8UC3, { 0, 0, 255 });
 	cv::Mat bgr_green = cv::Mat(1, 1, CV_8UC3, { 0, 255, 0 });
@@ -106,38 +149,78 @@ int main(int argc, char* argv[]) {
 	std::cout << "BGR Green to HSV: " << bgr_green << ", " << hsv_green << std::endl;
 
 	cv::cvtColor(bgr_red, hsv_red, cv::COLOR_BGR2HSV);
-	std::cout << "BGR Red to HSV: " << bgr_red << ", " << hsv_red << std::endl;
+	std::cout << "BGR Red to HSV: " << bgr_red << ", " << hsv_red << std::endl;	
 
-	while (true) {
+	if (image) {
 
-		cv::Mat frame, sml_frame;
-		std::stringstream ss;
-
-		if (current_frame + step_size < frame_count) {
-			if (video.read(frame)) {
-
-				cv::pyrDown(frame, sml_frame);
-				cv::imshow("Small " + file_name, sml_frame);
-
-				cv::GaussianBlur(frame, frame, cv::Size(5, 5), 0.0);
-
-				project::DetectColour(frame, cv::Scalar(110, 25, 25), cv::Scalar(130, 255, 255), &frame);
-
-				cv::imshow(file_name, frame);
-				/*ss << output_directory << "frame_" << current_frame << ".png";
-				std::cout << ss.str() << std::endl;
-				cv::imwrite(ss.str(), frame);
-				*/current_frame += step_size;
-				video.set(cv::CAP_PROP_POS_FRAMES, current_frame);
-			}
-		}		
-
-		char c = cv::waitKey(1);
-		if (c == 27) {
-			break;
+		cv::Mat input = cv::imread(input_directory + file_name);
+		if (input.empty()) {
+			std::cout << "Could not parse input file" << std::endl;
+			return -1;
 		}
-	}
 
+		//! Create window
+		cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
+
+		if (!input.empty()) {
+			cv::resize(input, input, cv::Size(1280, 720));
+			project::DetectColour(input, cv::Scalar(110, 25, 25), cv::Scalar(130, 255, 255), &input);
+			cv::imshow(file_name, input);
+		}
+
+		cv::waitKey(0);
+
+	} else{
+
+		cv::VideoCapture input(input_directory + file_name);
+
+		if (!input.isOpened()) {
+			std::cout << "Could not open input file" << std::endl;
+			return -1;
+		}
+
+		input.set(cv::CAP_PROP_FRAME_WIDTH, 1280);
+		input.set(cv::CAP_PROP_FRAME_HEIGHT, 720);
+
+		int frame_count = static_cast<int>(input.get(cv::CAP_PROP_FRAME_COUNT));
+		int current_frame = 0;
+
+		cv::namedWindow(file_name, cv::WINDOW_AUTOSIZE);
+		cv::namedWindow("Small " + file_name, cv::WINDOW_AUTOSIZE);
+
+		while (true) {
+
+			cv::Mat frame, sml_frame;
+			std::stringstream ss;
+
+			if (current_frame + step_size < frame_count) {
+				if (input.read(frame)) {
+
+					cv::pyrDown(frame, sml_frame);
+					cv::imshow("Small " + file_name, sml_frame);
+
+					cv::GaussianBlur(frame, frame, cv::Size(5, 5), 0.0);
+
+					project::DetectColour(frame, cv::Scalar(110, 25, 25), cv::Scalar(130, 255, 255), &frame);
+
+					cv::imshow(file_name, frame);
+					/*ss << output_directory << "frame_" << current_frame << ".png";
+					std::cout << ss.str() << std::endl;
+					cv::imwrite(ss.str(), frame);
+					*/
+					current_frame += step_size;
+					input.set(cv::CAP_PROP_POS_FRAMES, current_frame);
+				}
+			}
+
+			char c = cv::waitKey(1);
+			if (c == 27) {
+				break;
+			}
+		}
+
+	}
+	
 	cv::destroyAllWindows();
 
 	return 0;
