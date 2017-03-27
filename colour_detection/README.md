@@ -29,7 +29,7 @@ To help ensure everything works, I'd also suggest you create the following enrio
 1. Clone the opencv_projects repo'.
 1. Clone the gflags repo'.
 1. If you've not done so already, build gflags using CMake as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now a C:/Program Files/gflags directory, which contains an Include and Lib sub-directory. Move this directory to C:/dev_libraries/.
-1. Open the green_screen.sln file.
+1. Open the colour_dectection.sln file.
 1. Change the solution platforms from x86 to x64, if necessary.
 1. Build the project.
 
@@ -43,7 +43,7 @@ Here's a screen shot of the expected outputs:
 
 ![Example](./data/output/screenshot.png)
 
-If you call green_screen.exe from the command line, you can use the following flags:  
+If you call colour_detection.exe from the command line, you can use the following flags:  
 -i to set the input directory.  
 -f to set the file name.  
 -o to set the output directory.  
