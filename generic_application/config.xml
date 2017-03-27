@@ -1,0 +1,9 @@
+<?xml version="1.0" ?>
+<!--This is an XML file that has the default parameters for the program-->
+
+<!--Default sub-drectory for input files-->
+<Input>\data\input</Input>
+<!--Default sub-drectory for output files-->
+<Output>\data\output</Output>
+<!--Default input file name-->
+<File>Video.mp4</File>
