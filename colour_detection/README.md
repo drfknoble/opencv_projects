@@ -2,6 +2,8 @@
 
 # Description
 
+Demonstrates how the Open Computer Vision (OpenCV) library can be used to detect a colour. The command line can be used to modify the program's behavior. Works for either an image (.jpg, .png) or a video (.mp4, .avi) file.
+
 # Table of Contents
 
 1. Requirements.
@@ -41,7 +43,7 @@ When you run the executable it'll it'll look for a particular colour.
 
 Here's a screen shot of the expected outputs:
 
-![Example](./data/output/screenshot.png)
+![Example](./data/output/screenshot.PNG)
 
 If you call colour_detection.exe from the command line, you can use the following flags:  
 -i to set the input directory.  
