@@ -26,6 +26,7 @@ P.S. If you'd like to hear about new projects and tutorials, follow me on Twitte
 I have used the following tools and libraries to create each project:
 
  1. [gflags](https://github.com/gflags/gflags).
+ 1. [tinyxml2](https://github.com/leethomason/tinyxml2).
  1. [CMake](https://cmake.org/).
  1. [Microsoft Visual Studio 2017](https://www.visualstudio.com/).
  1. [OpenCV 3.2](http://opencv.org/).
@@ -75,7 +76,8 @@ The following is a list of the tutorials included in this repository:
 
 1. Clone the opencv_projects repo'.
 1. Clone the gflags repo'.
-1. If you've not done so already, build gflags using CMake as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now a C:/Program Files/gflags directory, which contains an Include and Lib sub-directories. Move this directory to C:/dev_libraries.
+1. If you've not done so already, build gflags and tinyxml2 using CMake and Visual Studio as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now C:/Program Files/gflags and ./tinyxml2 directories, which contains Include and Lib sub-directories. Move these to C:/dev_libraries.
+1. Create environment variables OPENCV_DIR and DEV_LIBRARIES.
 1. Open a project's solution file.
 1. Change the solution platforms from x86 to x64, if necessary.
 1. Build project.
