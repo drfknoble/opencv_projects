@@ -75,7 +75,7 @@ The following is a list of the tutorials included in this repository:
 # Installation
 
 1. Clone the opencv_projects repo'.
-1. Clone the gflags repo'.
+1. Clone the gflags and tinyxml2 repo's.
 1. If you've not done so already, build gflags and tinyxml2 using CMake and Visual Studio as an Administrator. Also, ensure 'Shared Libraries' are enabled. Once completed, by default, you should find that there is now C:/Program Files/gflags and ./tinyxml2 directories, which contains Include and Lib sub-directories. Move these to C:/dev_libraries.
 1. Create environment variables OPENCV_DIR and DEV_LIBRARIES.
 1. Open a project's solution file.
