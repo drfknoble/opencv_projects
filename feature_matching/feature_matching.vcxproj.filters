@@ -28,10 +28,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Picture 1.jpg">
+    <Image Include="Image 1.jpg">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Picture 2.jpg">
+    <Image Include="Image 2.jpg">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

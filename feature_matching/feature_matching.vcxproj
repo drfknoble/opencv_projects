@@ -147,8 +147,8 @@
     <ClInclude Include="feature_matcher.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Picture 1.jpg" />
-    <Image Include="Picture 2.jpg" />
+    <Image Include="Image 1.jpg" />
+    <Image Include="Image 2.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

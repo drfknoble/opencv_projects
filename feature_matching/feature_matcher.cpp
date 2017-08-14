@@ -46,7 +46,7 @@ const bool fm::feature_matcher::ORB(const cv::Mat & in1, const cv::Mat & in2, cv
 
 		for (int i = 0; i < descriptors1.rows; i++) {
 
-			if (matches[i].distance <= 0.8 * max_dist) {
+			if (matches[i].distance <= 0.5 * max_dist) {
 
 				good_matches.push_back(matches[i]);
 			}
@@ -96,14 +96,16 @@ const bool fm::feature_matcher::BRISK(const cv::Mat & in1, const cv::Mat & in2, 
 
 		for (int i = 0; i < descriptors1.rows; i++) {
 
-			if (matches[i].distance <= 0.8 * max_dist) {
+			if (matches[i].distance <= 0.5 * max_dist) {
 
 				good_matches.push_back(matches[i]);
 			}
 
 		}
 
-		cv::drawMatches(in1, key_points1, in2, key_points2, good_matches, *out1);
+		cv::drawMatches(in1, key_points1, in2, key_points2,
+			good_matches, *out1, cv::Scalar(0,0,255), cv::Scalar(0,0,255),
+			std::vector<char>(), cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
 		break;
 	}

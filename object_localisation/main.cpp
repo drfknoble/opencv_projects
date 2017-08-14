@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
 
 	cv::imshow("Image", output_image);
 
+	cv::imwrite(cv::String("Out 1.jpg"), output_image);
+
 	cv::waitKey(0);
 
 	cv::destroyAllWindows();

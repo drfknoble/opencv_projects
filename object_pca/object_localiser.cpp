@@ -49,7 +49,7 @@ const bool ol::object_localiser::ORB(const cv::Mat & in1, const cv::Mat & in2, c
 		}
 
 		cv::drawMatches(in1, keypoints_object, in2, keypoints_scene,
-			good_matches, *out1, cv::Scalar::all(-1), cv::Scalar::all(-1),
+			good_matches, *out1, cv::Scalar(0,0,255), cv::Scalar(0, 0, 255),
 			std::vector<char>(), cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
 		std::vector<cv::Point2f> obj;
@@ -140,7 +140,7 @@ const bool ol::object_localiser::BRISK(const cv::Mat & in1, const cv::Mat & in2,
 		}
 
 		cv::drawMatches(in1, keypoints_object, in2, keypoints_scene,
-			good_matches, *out1, cv::Scalar::all(-1), cv::Scalar::all(-1),
+			good_matches, *out1, cv::Scalar(0, 0, 255), cv::Scalar(0, 0, 255),
 			std::vector<char>(), cv::DrawMatchesFlags::NOT_DRAW_SINGLE_POINTS);
 
 		std::vector<cv::Point2f> obj;

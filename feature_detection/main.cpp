@@ -5,7 +5,7 @@
 
 int main(int argc, char* argv[]) {
 
-	cv::Mat image = cv::imread("Image 2.png");
+	cv::Mat image = cv::imread("Image 1.jpg");
 
 	if (image.empty()) {
 		std::cout << "Could not open image." << std::endl;
@@ -19,6 +19,8 @@ int main(int argc, char* argv[]) {
 	detector.BRISK(image, &image);
 
 	cv::imshow("Image", image);
+
+	cv::imwrite(cv::String("Out 1.jpg"), image);
 
 	cv::waitKey(0);
 

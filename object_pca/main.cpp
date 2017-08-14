@@ -25,6 +25,8 @@ int main(int argc, char* argv[]) {
 	localiser.BRISK(image_1, image_2, &output_image, &roi);
 
 	cv::imshow("Image", output_image);
+
+	cv::imwrite(cv::String("Out 1.jpg"), output_image);
 	
 	cv::namedWindow("PCA", CV_WINDOW_AUTOSIZE);
 
@@ -34,6 +36,8 @@ int main(int argc, char* argv[]) {
 	analyser.compute(roi, &pca);
 
 	cv::imshow("PCA", pca);
+
+	cv::imwrite(cv::String("Out 2.jpg"), roi);
 
 	cv::waitKey(0);
 
