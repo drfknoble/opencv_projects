@@ -43,7 +43,7 @@ DEFINE_string(o, "", "[dir]");
 * \brief gFlag command line parameter.
 * \param n n is the number of frames to step by, when viewing a video.
 */
-DEFINE_int32(n, 1, "[1, 100]");
+DEFINE_int32(n, 10, "[1, 100]");
 /*!
 * \brief gFlag command line parameter.
 * \param d d is the debug flag; when set, it displays additional information.
@@ -88,7 +88,7 @@ int main(int argc, char* argv[]) {
 		//std::cout << std::string(FLAGS_o) << std::endl;
 	}
 
-	if (!FLAGS_n == 1) { //! If step size is provided, update default.
+	if (FLAGS_n != 1) { //! If step size is provided, update default.
 		step_size = FLAGS_n;
 		//std::cout << FLAGS_n << std::endl;
 	}
